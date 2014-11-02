@@ -71,8 +71,9 @@ namespace EIMT.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
 
-            var user = UserManager.FindByEmail(model.Email);
-            if (!user.ConfirmedByAdmin)
+            var user = UserManager.FindByName(model.Email);
+
+            if (user != null && !user.ConfirmedByAdmin)
             {
                 ModelState.AddModelError("", "Your registration is not confirmed yet!");
                 return View(model);
