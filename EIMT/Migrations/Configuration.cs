@@ -1,20 +1,17 @@
 using System.Collections.Generic;
-using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Validation;
 using System.Text;
-using System.Web.Mvc.Html;
 using EIMT.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace EIMT.Migrations
 {
-    using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<EIMT.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
@@ -33,7 +30,7 @@ namespace EIMT.Migrations
             }
             catch (DbEntityValidationException ex)
             {
-                StringBuilder sb = new StringBuilder();
+                var sb = new StringBuilder();
 
                 foreach (var failure in ex.EntityValidationErrors)
                 {
@@ -47,12 +44,12 @@ namespace EIMT.Migrations
 
                 throw new DbEntityValidationException(
                     "Entity Validation Failed - errors follow:\n" +
-                    sb.ToString(), ex
-                ); // Add the original exception as the innerException
+                    sb, ex
+                    ); // Add the original exception as the innerException
             }
         }
 
-        protected override void Seed(EIMT.Models.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             var userRoles = new List<IdentityRole> {new IdentityRole {Name = "Admin"}, new IdentityRole {Name = "User"}};
 
@@ -60,30 +57,33 @@ namespace EIMT.Migrations
             using (var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()))
                 )
             {
-                foreach (IdentityRole identityRole in userRoles)
+                foreach (var identityRole in userRoles)
                 {
                     if (rm.RoleExists(identityRole.Name)) continue;
-                    IdentityResult result = rm.Create(identityRole);
+                    var result = rm.Create(identityRole);
                     if (!result.Succeeded)
                         throw new DbEntityValidationException("Creating role " + identityRole.Name +
-                                                              "failed with error(s): " + result.Errors.Aggregate((i, j) => i + ';' + j));
+                                                              "failed with error(s): " +
+                                                              result.Errors.Aggregate((i, j) => i + ';' + j));
                 }
-                ApplicationUser user = um.FindByName("Admin");
+                var user = um.FindByName("Admin");
                 if (user == null)
                 {
                     user = new ApplicationUser {UserName = "Admin"};
-                    IdentityResult result = um.Create(user, "4Dm1np4ss");
+                    var result = um.Create(user, "4Dm1np4ss");
                     if (!result.Succeeded)
                         throw new DbEntityValidationException("Creating role " + user.UserName +
-                                                              "failed with error(s): " + result.Errors.Aggregate((i, j) => i + ';' + j));
+                                                              "failed with error(s): " +
+                                                              result.Errors.Aggregate((i, j) => i + ';' + j));
                 }
 
                 if (!um.IsInRole(user.Id, "Admin"))
                 {
-                    IdentityResult result = um.AddToRole(user.Id, "Admin");
+                    var result = um.AddToRole(user.Id, "Admin");
                     if (!result.Succeeded)
                         throw new DbEntityValidationException("Adding user '" + user.UserName +
-                                                              "' to 'Admin' role failed with error(s): " + result.Errors.Aggregate((i, j) => i + ';' + j));
+                                                              "' to 'Admin' role failed with error(s): " +
+                                                              result.Errors.Aggregate((i, j) => i + ';' + j));
                 }
             }
 
