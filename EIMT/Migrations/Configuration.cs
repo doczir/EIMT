@@ -51,7 +51,8 @@ namespace EIMT.Migrations
 
         protected override void Seed(ApplicationDbContext context)
         {
-            var userRoles = new List<IdentityRole> {new IdentityRole {Name = "Admin"}, new IdentityRole {Name = "User"}};
+            string adminUserName = "admin@eimt.hu";
+            var userRoles = new List<IdentityRole> {new IdentityRole {Name = adminUserName}, new IdentityRole {Name = "User"}};
 
             using (var rm = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext())))
             using (var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()))
@@ -66,10 +67,10 @@ namespace EIMT.Migrations
                                                               "failed with error(s): " +
                                                               result.Errors.Aggregate((i, j) => i + ';' + j));
                 }
-                var user = um.FindByName("Admin");
+                var user = um.FindByName(adminUserName);
                 if (user == null)
                 {
-                    user = new ApplicationUser {UserName = "Admin"};
+                    user = new ApplicationUser {UserName = adminUserName};
                     var result = um.Create(user, "4Dm1np4ss");
                     if (!result.Succeeded)
                         throw new DbEntityValidationException("Creating role " + user.UserName +
@@ -77,9 +78,9 @@ namespace EIMT.Migrations
                                                               result.Errors.Aggregate((i, j) => i + ';' + j));
                 }
 
-                if (!um.IsInRole(user.Id, "Admin"))
+                if (!um.IsInRole(user.Id, adminUserName))
                 {
-                    var result = um.AddToRole(user.Id, "Admin");
+                    var result = um.AddToRole(user.Id, adminUserName);
                     if (!result.Succeeded)
                         throw new DbEntityValidationException("Adding user '" + user.UserName +
                                                               "' to 'Admin' role failed with error(s): " +
