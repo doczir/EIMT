@@ -52,7 +52,7 @@ namespace EIMT.Migrations
         protected override void Seed(ApplicationDbContext context)
         {
             string adminUserName = "admin@eimt.hu";
-            var userRoles = new List<IdentityRole> {new IdentityRole {Name = adminUserName}, new IdentityRole {Name = "User"}};
+            var userRoles = new List<IdentityRole> {new IdentityRole {Name = "Admin"}, new IdentityRole {Name = "User"}};
 
             using (var rm = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext())))
             using (var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()))
@@ -78,9 +78,9 @@ namespace EIMT.Migrations
                                                               result.Errors.Aggregate((i, j) => i + ';' + j));
                 }
 
-                if (!um.IsInRole(user.Id, adminUserName))
+                if (!um.IsInRole(user.Id, "Admin"))
                 {
-                    var result = um.AddToRole(user.Id, adminUserName);
+                    var result = um.AddToRole(user.Id, "Admin");
                     if (!result.Succeeded)
                         throw new DbEntityValidationException("Adding user '" + user.UserName +
                                                               "' to 'Admin' role failed with error(s): " +
