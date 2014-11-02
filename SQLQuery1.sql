@@ -1,1 +1,1 @@
-﻿SELECT * FROM AspNetUserRoles;
+﻿SELECT * FROM AspNetUsers;
