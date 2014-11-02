@@ -9,24 +9,29 @@ namespace EIMT.Controllers
             return View();
         }
 
-        public ActionResult About()
+        [Authorize(Roles = "User")]
+        public ActionResult AddServiceProvider()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
-        public ActionResult Contact()
+        [Authorize(Roles = "User")]
+        public ActionResult ListInvoices()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
 
         [Authorize(Roles="Admin")]
-        public ActionResult Admin()
+        public ActionResult Users()
         {
             return View();
         }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult ServiceProviders()
+        {
+            return View();
+        }
+
     }
 }
