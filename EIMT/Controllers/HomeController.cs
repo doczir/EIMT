@@ -1,4 +1,10 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Linq;
+using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
+using EIMT.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity;
 
 namespace EIMT.Controllers
 {
@@ -24,7 +30,10 @@ namespace EIMT.Controllers
         [Authorize(Roles="Admin")]
         public ActionResult Users()
         {
-            return View();
+            using (var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+            {
+                return View(um.Users.ToList().Where(u => um.IsInRole(u.Id, "User")).ToList());
+            }
         }
 
         [Authorize(Roles = "Admin")]

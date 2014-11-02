@@ -1,7 +1,31 @@
-﻿
+﻿@model IEnumerable<EIMT.Models.ApplicationUser>
+
 @{
     ViewBag.Title = "List users";
 }
 
 <h2>List users</h2>
+<br/>
+<br/>
 
+<Table>
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Confirmed by admin</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>@user.Name</td>
+                <td>@user.Address</td>
+                <td>@user.ConfirmedByAdmin</td>
+            </tr>
+        }
+    </tbody>
+</Table>
