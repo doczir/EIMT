@@ -28,8 +28,8 @@
                     }
                     @if (User.IsInRole("Admin"))
                     {
-                        <li>@Html.ActionLink("Users", "Users", "Home")</li>
-                        <li>@Html.ActionLink("Service Providers", "ServiceProviders", "Home")</li>
+                        <li>@Html.ActionLink("ListUsers", "ListUsers", "Home")</li>
+                        <li>@Html.ActionLink("Service Providers", "ListServiceProviders", "Home")</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")

@@ -30,7 +30,7 @@ namespace EIMT.Controllers
         }
 
         [Authorize(Roles="Admin")]
-        public ActionResult Users()
+        public ActionResult ListUsers()
         {
             using (var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
             {
@@ -39,7 +39,7 @@ namespace EIMT.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public ActionResult ServiceProviders()
+        public ActionResult ListServiceProviders()
         {
             using (var context = new ApplicationDbContext())
             {

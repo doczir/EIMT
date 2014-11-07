@@ -8,7 +8,7 @@ namespace EIMT.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.ServiceProviders",
+                "dbo.ListServiceProviders",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
@@ -22,7 +22,7 @@ namespace EIMT.Migrations
         
         public override void Down()
         {
-            DropTable("dbo.ServiceProviders");
+            DropTable("dbo.ListServiceProviders");
         }
     }
 }

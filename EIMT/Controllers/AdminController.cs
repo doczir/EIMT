@@ -25,7 +25,7 @@ namespace EIMT.Controllers
                 }
             }
             
-            return RedirectToAction("Users", "Home");
+            return RedirectToAction("ListUsers", "Home");
         }
 
         [HttpGet]
@@ -53,23 +53,47 @@ namespace EIMT.Controllers
                 }
             }
 
-            return RedirectToAction("Users", "Home");
+            return RedirectToAction("ListUsers", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult CreateServiceProvider()
+        {
+            return View();
         }
 
         [HttpPost]
-        public ActionResult SetConfirmed(string email)
+        public ActionResult CreateServiceProvider(ServiceProviderViewModel spvm)
         {
-            using (var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+            if (ModelState.IsValid)
             {
-                var user = um.FindByName(email);
-                if (user != null)
-                {
-                    user.ConfirmedByAdmin = !user.ConfirmedByAdmin;
-                    um.Update(user);
-                }
+                // TODO Create service provider
             }
 
-            return RedirectToAction("Users", "Home");
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult DeleteServiceProvider(string name)
+        {
+            return RedirectToAction("ListServiceProviders", "Admin");
+        }
+
+        [HttpGet]
+        public ActionResult EditServiceProvider()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult EditServiceProvider(ServiceProviderViewModel spvm)
+        {
+            if (ModelState.IsValid)
+            {
+                // TODO Edit service provider
+            }
+
+            return View();
         }
 
 	}
