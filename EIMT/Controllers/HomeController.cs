@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
@@ -39,7 +41,10 @@ namespace EIMT.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult ServiceProviders()
         {
-            return View();
+            using (var context = new ApplicationDbContext())
+            {
+                return View(context.ServiceProviders.ToList());
+            }
         }
 
     }

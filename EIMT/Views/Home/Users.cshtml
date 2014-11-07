@@ -1,31 +1,43 @@
 ﻿@model IEnumerable<EIMT.Models.ApplicationUser>
 
 @{
-    ViewBag.Title = "List users";
+    ViewBag.Title = "Users";
 }
 
-<h2>List users</h2>
-<br/>
-<br/>
+<h2>Users</h2>
 
-<Table>
-    <thead>
-        <tr>
-            <th>Email</th>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Confirmed by admin</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model)
-        {
-            <tr>
-                <td>@user.Email</td>
-                <td>@user.Name</td>
-                <td>@user.Address</td>
-                <td>@user.ConfirmedByAdmin</td>
-            </tr>
-        }
-    </tbody>
-</Table>
+@Html.AntiForgeryToken()
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ConfirmedByAdmin)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ConfirmedByAdmin)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditUser", "Admin", new { email=item.Email }, null) |
+            @Html.ActionLink("Delete", "DeleteUser", "Admin", new { email=item.Email }, null)
+        </td>
+    </tr>
+}
+
+</table>
