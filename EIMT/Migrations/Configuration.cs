@@ -54,7 +54,11 @@ namespace EIMT.Migrations
             const string adminUserName = "admin@eimt.hu";
             const string adminRole = "Admin";
 
-            var userRoles = new List<IdentityRole> {new IdentityRole {Name = adminRole}, new IdentityRole {Name = "User"}};
+            var userRoles = new List<IdentityRole>
+            {
+                new IdentityRole {Name = adminRole},
+                new IdentityRole {Name = "User"}
+            };
 
             using (var rm = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext())))
             using (var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()))
@@ -72,7 +76,7 @@ namespace EIMT.Migrations
                 var user = um.FindByName(adminUserName);
                 if (user == null)
                 {
-                    user = new ApplicationUser {UserName = adminUserName, ConfirmedByAdmin = true };
+                    user = new ApplicationUser {UserName = adminUserName, ConfirmedByAdmin = true};
                     var result = um.Create(user, "4Dm1np4ss");
                     if (!result.Succeeded)
                         throw new DbEntityValidationException("Creating role " + user.UserName +

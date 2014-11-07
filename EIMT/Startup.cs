@@ -1,7 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(EIMT.Startup))]
+[assembly: OwinStartupAttribute(typeof (EIMT.Startup))]
+
 namespace EIMT
 {
     public partial class Startup

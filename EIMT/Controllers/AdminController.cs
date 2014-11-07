@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using EIMT.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -12,11 +8,11 @@ namespace EIMT.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-
         [HttpGet]
         public ActionResult DeleteUser(string email)
         {
-            using (var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+            using (var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()))
+                )
             {
                 var user = um.FindByName(email);
                 if (user != null)
@@ -31,7 +27,8 @@ namespace EIMT.Controllers
         [HttpGet]
         public ActionResult EditUser(string email)
         {
-            using (var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+            using (var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()))
+                )
             {
                 return View(um.FindByName(email));
             }
@@ -40,7 +37,8 @@ namespace EIMT.Controllers
         [HttpPost]
         public ActionResult EditUser(ApplicationUser user)
         {
-            using (var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+            using (var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()))
+                )
             {
                 var dbUser = um.FindByName(user.Email);
                 if (dbUser != null)
@@ -75,15 +73,15 @@ namespace EIMT.Controllers
 
         [HttpGet]
         public ActionResult DeleteServiceProvider(string name)
-        {
+            {
             return RedirectToAction("ListServiceProviders", "Admin");
         }
 
         [HttpGet]
         public ActionResult EditServiceProvider()
-        {
+                {
             return View();
-        }
+                }
 
         [HttpGet]
         public ActionResult EditServiceProvider(ServiceProviderViewModel spvm)
@@ -95,6 +93,5 @@ namespace EIMT.Controllers
 
             return View();
         }
-
 	}
 }
