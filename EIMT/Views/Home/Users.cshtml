@@ -22,22 +22,23 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ConfirmedByAdmin)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "EditUser", "Admin", new { email=item.Email }, null) |
-            @Html.ActionLink("Delete", "DeleteUser", "Admin", new { email=item.Email }, null)
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConfirmedByAdmin)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditUser", "Admin", new {email = item.Email}, null) |
+                @Html.ActionLink("Delete", "DeleteUser", "Admin", new {email = item.Email}, null)
+            </td>
+        </tr>
+    }
 
 </table>

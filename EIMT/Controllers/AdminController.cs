@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using EIMT.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -12,11 +8,11 @@ namespace EIMT.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-
         [HttpGet]
         public ActionResult DeleteUser(string email)
         {
-            using (var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+            using (var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()))
+                )
             {
                 var user = um.FindByName(email);
                 if (user != null)
@@ -24,14 +20,15 @@ namespace EIMT.Controllers
                     um.Delete(user);
                 }
             }
-            
+
             return RedirectToAction("Users", "Home");
         }
 
         [HttpGet]
         public ActionResult EditUser(string email)
         {
-            using (var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+            using (var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()))
+                )
             {
                 return View(um.FindByName(email));
             }
@@ -40,7 +37,8 @@ namespace EIMT.Controllers
         [HttpPost]
         public ActionResult EditUser(ApplicationUser user)
         {
-            using (var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+            using (var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()))
+                )
             {
                 var dbUser = um.FindByName(user.Email);
                 if (dbUser != null)
@@ -59,7 +57,8 @@ namespace EIMT.Controllers
         [HttpPost]
         public ActionResult SetConfirmed(string email)
         {
-            using (var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+            using (var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()))
+                )
             {
                 var user = um.FindByName(email);
                 if (user != null)
@@ -71,6 +70,5 @@ namespace EIMT.Controllers
 
             return RedirectToAction("Users", "Home");
         }
-
-	}
+    }
 }
