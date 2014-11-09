@@ -1,5 +1,9 @@
 ﻿using System.ComponentModel;
+<<<<<<< HEAD
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
+=======
+>>>>>>> daad53afcd8b48e96e18f44c3f6d41276ba8c9d2
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -10,7 +14,13 @@ namespace EIMT.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+<<<<<<< HEAD
         [Display(Name = "Name")]
+=======
+        [DefaultValue(false)]
+        public bool ConfirmedByAdmin { get; set; }
+
+>>>>>>> daad53afcd8b48e96e18f44c3f6d41276ba8c9d2
         public string Name { get; set; }
 
         [Display(Name = "Address")]

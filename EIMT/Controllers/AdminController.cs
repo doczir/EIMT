@@ -1,5 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
+using System.Web.Routing;
+using EIMT.Managers;
 using EIMT.Models;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -61,37 +65,141 @@ namespace EIMT.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateServiceProvider(ServiceProviderViewModel spvm)
+        public ActionResult CreateServiceProvider(CreateServiceProviderViewModel spvm)
         {
             if (ModelState.IsValid)
             {
-                // TODO Create service provider
+                using (var spm = new ServiceProviderManager(new ApplicationDbContext()))
+                {
+                    try
+                    {
+                        spm.RegisterServiceProvider(spvm.Name, spvm.Password, spvm.AccountNumber);
+
+                        return RedirectToAction("ListServiceProviders", "Home");
+                    } catch (Exception e) {
+                        ModelState.AddModelError("", e.Message);
+
+                        return View(spvm);
+                    }
+                }
             }
 
-            return View();
+            return View(spvm);
         }
 
         [HttpGet]
-        public ActionResult DeleteServiceProvider(string name)
+        public ActionResult DeleteServiceProvider(int id)
+        {
+            using (var spm = new ServiceProviderManager(new ApplicationDbContext()))
             {
-            return RedirectToAction("ListServiceProviders", "Admin");
+                var res = spm.Delete(id);
+
+                return RedirectToAction("ListServiceProviders", "Home");
+            }
         }
 
         [HttpGet]
-        public ActionResult EditServiceProvider()
+        public ActionResult EditServiceProviderData(int id)
+        {
+            using (var spm = new ServiceProviderManager(new ApplicationDbContext()))
+            {
+                ServiceProviderIdentity spi = spm.GetById(id);
+                if (spi != null)
                 {
-            return View();
+                    EditServiceProviderDataViewModel espdvm = new EditServiceProviderDataViewModel()
+                    {
+                        Id = spi.Id,
+                        Name = spi.Name,
+                        AccountNumber = spi.AccountNumber
+                    };
+
+                    return View(espdvm);
                 }
 
-        [HttpGet]
-        public ActionResult EditServiceProvider(ServiceProviderViewModel spvm)
+                return RedirectToAction("ListServiceProviders", "Home");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditServiceProviderData(EditServiceProviderDataViewModel espdvm)
         {
             if (ModelState.IsValid)
             {
-                // TODO Edit service provider
+                var context = new ApplicationDbContext();
+                using (var spm = new ServiceProviderManager(context))
+                {
+                    ServiceProviderIdentity spi = spm.GetById(espdvm.Id);
+                    if (spi != null)
+                    {
+                        spi.Name = espdvm.Name;
+                        spi.AccountNumber = espdvm.AccountNumber;
+
+                        try
+                        {
+                            spm.Modify(spi);
+
+                            return RedirectToAction("ListServiceProviders", "Home");
+                        }
+                        catch (Exception e)
+                        {
+                            ModelState.AddModelError("", e.Message);
+
+                            return View(espdvm);
+                        }
+                    }
+                }
+            }
+            
+            return View(espdvm);
+        }
+
+        [HttpGet]
+        public ActionResult EditServiceProviderPassword(int id)
+        {
+            using (var spm = new ServiceProviderManager(new ApplicationDbContext()))
+            {
+                var spi = spm.GetById(id);
+                if (spi != null)
+                {
+                    return View(new EditServiceProviderPasswordViewModel() {Id = spi.Id});
+                }
+
+                return RedirectToAction("ListServiceProviders", "Home");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditServiceProviderPassword(EditServiceProviderPasswordViewModel esppvm)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var spm = new ServiceProviderManager(new ApplicationDbContext()))
+                {
+                    if (spm.Authenticate(esppvm.Id, esppvm.OldPassword) != null)
+                    {
+                        try
+                        {
+                            spm.ModifyPassword(esppvm.Id, esppvm.Password);
+                        }
+                        catch (Exception e)
+                        {
+                            ModelState.AddModelError("", e.Message);
+
+                            return View(esppvm);
+                        }
+
+                        return RedirectToAction("ListServiceProviders", "Home");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Wrong old password!");
+
+                        return View(esppvm);
+                    }
+                }
             }
 
-            return View();
+            return View(esppvm);
         }
 	}
 }

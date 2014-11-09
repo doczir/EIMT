@@ -4,10 +4,11 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using EIMT.Models;
+using Microsoft.Ajax.Utilities;
 
 namespace EIMT.Managers
 {
-    public class ServiceProviderManager
+    public class ServiceProviderManager : IDisposable
     {
         private readonly ApplicationDbContext _context;
 
@@ -25,11 +26,38 @@ namespace EIMT.Managers
         /// <returns>A proxy object representing the service provider.</returns>
         public ServiceProviderIdentity RegisterServiceProvider(string name, string pass, string accountNumber)
         {
-            var sp = new ServiceProvider {Name = name, Password = Encrypt(pass.Trim()), AccountNumber = accountNumber};
+            var spSameNameLsit = _context.ServiceProviders.Where(sp => sp.Name == name);
 
-            _context.ServiceProviders.Add(sp);
+            if (!spSameNameLsit.Any())
+            {
+                var sp = new ServiceProvider
+                {
+                    Name = name,
+                    Password = Encrypt(pass.Trim()),
+                    AccountNumber = accountNumber
+                };
 
-            return new ServiceProviderIdentity(sp);
+                _context.ServiceProviders.Add(sp);
+
+                _context.SaveChanges();
+
+                return new ServiceProviderIdentity(sp);
+            }
+            else
+            {
+                throw new Exception("There is an existing service provider with the given name. Please choose an other name!");
+            }
+        }
+
+        public ServiceProviderIdentity Authenticate(int id, string pass)
+        {
+            var ep = Encrypt(pass);
+
+            var query = (from s in _context.ServiceProviders
+                         where s.Id == id && s.Password == ep
+                         select s).FirstOrDefault();
+
+            return query == null ? null : new ServiceProviderIdentity(query);
         }
 
         /// <summary>
@@ -54,7 +82,7 @@ namespace EIMT.Managers
         /// </summary>
         /// <param name="id">The id of the service provider.</param>
         /// <returns>A proxy object representing the service provider, null if not found.</returns>
-        public ServiceProviderIdentity GetById(string id)
+        public ServiceProviderIdentity GetById(int id)
         {
             var query = (from s in _context.ServiceProviders
                 where s.Id == id
@@ -84,16 +112,34 @@ namespace EIMT.Managers
         /// <returns>True if succesfull, false otherwise.</returns>
         public bool Modify(ServiceProviderIdentity spi)
         {
-            if (GetByName(spi.Name) != null) return false;
+            if (_context.ServiceProviders.Any(sp => sp.Id != spi.Id && sp.Name == spi.Name))
+                    throw new Exception("There is an existing service provider with the given name. Please choose an other name!");
 
             var query = (from s in _context.ServiceProviders
                 where s.Id == spi.Id
                 select s).FirstOrDefault();
 
-            if (query == null) return false;
+            if (query == null)
+                    throw new Exception("There isn't an existing service provider with the given id. Please choose an other id!");
+
             query.Name = spi.Name;
             query.Id = spi.Id;
             query.AccountNumber = spi.AccountNumber;
+
+            _context.SaveChanges();
+            return true;
+        }
+
+        public bool ModifyPassword(int id, string newPass)
+        {
+            var query = (from s in _context.ServiceProviders
+                         where s.Id == id
+                         select s).FirstOrDefault();
+
+            if (query == null)
+                    throw new Exception("There isn't an existing service provider with the given id. Please try again!");
+
+            query.Password = Encrypt(newPass);
 
             _context.SaveChanges();
             return true;
@@ -111,8 +157,25 @@ namespace EIMT.Managers
                          where s.Name == name
                          select s).FirstOrDefault();
 
-            if (query == null) return false;
+            if (query == null)
+                    throw new Exception("There isn't an existing service provider with the given name. Please try again!");
+
             query.Password = Encrypt(newPass);
+
+            _context.SaveChanges();
+            return true;
+        }
+
+        public bool Delete(int id)
+        {
+            var query = (from s in _context.ServiceProviders
+                         where s.Id == id
+                         select s).FirstOrDefault();
+
+            if (query == null)
+                    throw new Exception("There isn't an existing service provider with the given id. Please try again!");
+
+            _context.ServiceProviders.Remove(query);
 
             _context.SaveChanges();
             return true;
@@ -126,10 +189,11 @@ namespace EIMT.Managers
         public bool Delete(string name)
         {
             var query = (from s in _context.ServiceProviders
-                         where s.Id == name
+                         where s.Name == name
                          select s).FirstOrDefault();
             
-            if (query == null) return false;
+            if (query == null)
+                    throw new Exception("There is an existing service provider with the given name. Please try again!");
             
             _context.ServiceProviders.Remove(query);
             
@@ -160,6 +224,11 @@ namespace EIMT.Managers
                 }
             }
             return text;
+        }
+
+        public void Dispose()
+        {
+            _context.Dispose();
         }
     }
 }

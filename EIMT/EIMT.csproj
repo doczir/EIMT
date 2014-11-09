@@ -182,9 +182,9 @@
     <Compile Include="Migrations\201411022051407_User_ConfirmedByAdmin.Designer.cs">
       <DependentUpon>201411022051407_User_ConfirmedByAdmin.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201411022204065_Service_Providers.cs" />
-    <Compile Include="Migrations\201411022204065_Service_Providers.Designer.cs">
-      <DependentUpon>201411022204065_Service_Providers.cs</DependentUpon>
+    <Compile Include="Migrations\201411072112383_Service_Providers.cs" />
+    <Compile Include="Migrations\201411072112383_Service_Providers.Designer.cs">
+      <DependentUpon>201411072112383_Service_Providers.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -259,7 +259,8 @@
     <Content Include="Views\Home\ListUsers.cshtml" />
     <Content Include="Views\Admin\EditUser.cshtml" />
     <Content Include="Views\Admin\CreateServiceProvider.cshtml" />
-    <Content Include="Views\Admin\EditServiceProvider.cshtml" />
+    <Content Include="Views\Admin\EditServiceProviderData.cshtml" />
+    <Content Include="Views\Admin\EditServiceProviderPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -284,8 +285,8 @@
     <EmbeddedResource Include="Migrations\201411022051407_User_ConfirmedByAdmin.resx">
       <DependentUpon>201411022051407_User_ConfirmedByAdmin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201411022204065_Service_Providers.resx">
-      <DependentUpon>201411022204065_Service_Providers.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201411072112383_Service_Providers.resx">
+      <DependentUpon>201411072112383_Service_Providers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

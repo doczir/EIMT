@@ -1,10 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
+using System.Web.ModelBinding;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace EIMT.Models
 {
     public class ServiceProviderIdentity
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string AccountNumber { get; set; }
 
@@ -19,8 +23,7 @@ namespace EIMT.Models
     public class ServiceProvider
     {
         [Key]
-        public string Id { get; set; }
-        [Key]
+        public int Id { get; set; }
         public string Name { get; set; }
         public string AccountNumber { get; set; }
         public string Password { get; set; }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using EIMT.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -39,7 +40,14 @@ namespace EIMT.Controllers
         {
             using (var context = new ApplicationDbContext())
             {
-                return View(context.ServiceProviders.ToList());
+                IList<ServiceProviderViewModel> spvmList = new List<ServiceProviderViewModel>();
+
+                foreach (var serviceProvider in context.ServiceProviders)
+                {
+                    spvmList.Add(new ServiceProviderViewModel() {Id = serviceProvider.Id, Name = serviceProvider.Name, AccountNumber = serviceProvider.AccountNumber});
+                }
+
+                return View(spvmList);
             }
         }
 

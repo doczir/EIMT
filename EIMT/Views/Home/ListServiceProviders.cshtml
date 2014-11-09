@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EIMT.Models.ServiceProvider>
+﻿@model IEnumerable<EIMT.Models.ServiceProviderViewModel>
 
 @{
     ViewBag.Title = "ListServiceProviders";
@@ -35,7 +35,8 @@
             @Html.DisplayFor(modelItem => item.AccountNumber)
         </td>
         <td>
-            @Html.ActionLink("Edit", "EditServiceProvider", "Admin", new { id=item.Id }, null) |
+            @Html.ActionLink("Edit", "EditServiceProviderData", "Admin", new { id=item.Id }, null) |
+            @Html.ActionLink("Change password", "EditServiceProviderPassword", "Admin", new { id = item.Id }, null) |
             @Html.ActionLink("Delete", "DeleteServiceProvider", "Admin", new { id=item.Id }, null)
         </td>
     </tr>
