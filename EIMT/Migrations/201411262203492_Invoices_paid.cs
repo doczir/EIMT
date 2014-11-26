@@ -3,7 +3,7 @@ namespace EIMT.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Invoices_Paid : DbMigration
+    public partial class Invoices_paid : DbMigration
     {
         public override void Up()
         {

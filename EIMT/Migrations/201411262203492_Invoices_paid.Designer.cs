@@ -7,13 +7,13 @@ namespace EIMT.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class Invoices_Paid : IMigrationMetadata
+    public sealed partial class Invoices_paid : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Invoices_Paid));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Invoices_paid));
         
         string IMigrationMetadata.Id
         {
-            get { return "201411262039541_Invoices_Paid"; }
+            get { return "201411262203492_Invoices_paid"; }
         }
         
         string IMigrationMetadata.Source

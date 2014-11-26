@@ -191,17 +191,13 @@
     <Compile Include="Migrations\201411262021138_UserServiceProvider.Designer.cs">
       <DependentUpon>201411262021138_UserServiceProvider.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201411262034351_Invoices.cs" />
-    <Compile Include="Migrations\201411262034351_Invoices.Designer.cs">
-      <DependentUpon>201411262034351_Invoices.cs</DependentUpon>
+    <Compile Include="Migrations\201411262111051_Invoices.cs" />
+    <Compile Include="Migrations\201411262111051_Invoices.Designer.cs">
+      <DependentUpon>201411262111051_Invoices.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201411262052433_LastInvoice_UserNumber.cs" />
-    <Compile Include="Migrations\201411262052433_LastInvoice_UserNumber.Designer.cs">
-      <DependentUpon>201411262052433_LastInvoice_UserNumber.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201411262039541_Invoices_Paid.cs" />
-    <Compile Include="Migrations\201411262039541_Invoices_Paid.Designer.cs">
-      <DependentUpon>201411262039541_Invoices_Paid.cs</DependentUpon>
+    <Compile Include="Migrations\201411262203492_Invoices_paid.cs" />
+    <Compile Include="Migrations\201411262203492_Invoices_paid.Designer.cs">
+      <DependentUpon>201411262203492_Invoices_paid.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -316,14 +312,11 @@
     <EmbeddedResource Include="Migrations\201411262021138_UserServiceProvider.resx">
       <DependentUpon>201411262021138_UserServiceProvider.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201411262034351_Invoices.resx">
-      <DependentUpon>201411262034351_Invoices.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201411262111051_Invoices.resx">
+      <DependentUpon>201411262111051_Invoices.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201411262052433_LastInvoice_UserNumber.resx">
-      <DependentUpon>201411262052433_LastInvoice_UserNumber.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201411262039541_Invoices_Paid.resx">
-      <DependentUpon>201411262039541_Invoices_Paid.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201411262203492_Invoices_paid.resx">
+      <DependentUpon>201411262203492_Invoices_paid.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
