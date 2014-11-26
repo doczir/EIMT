@@ -162,10 +162,10 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Managers\InvoiceManager.cs" />
     <Compile Include="Managers\ServiceProviderManager.cs" />
     <Compile Include="Migrations\201411021627352_Init.cs" />
     <Compile Include="Migrations\201411021627352_Init.Designer.cs">
