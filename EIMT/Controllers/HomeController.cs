@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using EIMT.Managers;
 using EIMT.Models;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity;
 
@@ -21,9 +23,26 @@ namespace EIMT.Controllers
         }
 
         [Authorize(Roles = "User")]
-        public ActionResult ListInvoices()
+        public ActionResult Invoices()
         {
-            return View();
+            using (var im = new InvoiceManager(new ApplicationDbContext()))
+            using (var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+            {
+                string userId = User.Identity.GetUserId();
+
+                ApplicationUser user = um.FindById(userId);
+
+                var invoices = im.GetInvoices(user);
+                List<InvoiceViewModel> ivms = new List<InvoiceViewModel>();
+                foreach (Invoice invoice in invoices)
+                {
+                    InvoiceViewModel ivm = new InvoiceViewModel(invoice);
+
+                    ivms.Add(ivm);
+                }
+
+                return View(ivms);
+            }
         }
 
         [Authorize(Roles="Admin")]

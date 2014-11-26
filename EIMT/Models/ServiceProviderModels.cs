@@ -49,5 +49,7 @@ namespace EIMT.Models
         public int Total { get; set; }
 
         public DateTime Deadline { get; set; }
+
+        public Boolean Paid { get; set; }
     }
 }

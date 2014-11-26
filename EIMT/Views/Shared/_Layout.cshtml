@@ -23,12 +23,12 @@
                 <ul class="nav navbar-nav">
                     @if (User.IsInRole("User"))
                     {
-                        <li>@Html.ActionLink("Add Service Provider", "AddServiceProvider", "Home")</li>
-                        <li>@Html.ActionLink("List Invoices", "ListInvoices", "Home")</li>
+                        <li>@Html.ActionLink("Service Provider", "ServiceProviders", "Home")</li>
+                        <li>@Html.ActionLink("Invoices", "Invoices", "Home")</li>
                     }
                     @if (User.IsInRole("Admin"))
                     {
-                        <li>@Html.ActionLink("ListUsers", "ListUsers", "Home")</li>
+                        <li>@Html.ActionLink("Users", "ListUsers", "Home")</li>
                         <li>@Html.ActionLink("Service Providers", "ListServiceProviders", "Home")</li>
                     }
                 </ul>
