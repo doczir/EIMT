@@ -162,6 +162,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -193,6 +194,10 @@
     <Compile Include="Migrations\201411262034351_Invoices.cs" />
     <Compile Include="Migrations\201411262034351_Invoices.Designer.cs">
       <DependentUpon>201411262034351_Invoices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411262052433_LastInvoice_UserNumber.cs" />
+    <Compile Include="Migrations\201411262052433_LastInvoice_UserNumber.Designer.cs">
+      <DependentUpon>201411262052433_LastInvoice_UserNumber.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -277,6 +282,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -306,6 +312,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201411262034351_Invoices.resx">
       <DependentUpon>201411262034351_Invoices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411262052433_LastInvoice_UserNumber.resx">
+      <DependentUpon>201411262052433_LastInvoice_UserNumber.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
