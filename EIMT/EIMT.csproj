@@ -190,6 +190,10 @@
     <Compile Include="Migrations\201411262021138_UserServiceProvider.Designer.cs">
       <DependentUpon>201411262021138_UserServiceProvider.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201411262034351_Invoices.cs" />
+    <Compile Include="Migrations\201411262034351_Invoices.Designer.cs">
+      <DependentUpon>201411262034351_Invoices.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -299,6 +303,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201411262021138_UserServiceProvider.resx">
       <DependentUpon>201411262021138_UserServiceProvider.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411262034351_Invoices.resx">
+      <DependentUpon>201411262034351_Invoices.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

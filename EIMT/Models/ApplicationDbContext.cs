@@ -13,6 +13,8 @@ namespace EIMT.Models
         public DbSet<ServiceProvider> ServiceProviders { get; set; }
         public DbSet<UserServiceProvider> UserServiceProvider { get; set; }
 
+        public DbSet<Invoice> Invoices { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
