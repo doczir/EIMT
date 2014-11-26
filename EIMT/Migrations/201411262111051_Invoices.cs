@@ -21,12 +21,16 @@ namespace EIMT.Migrations
                 .ForeignKey("dbo.UserServiceProviders", t => t.UserServiceProvider_Id)
                 .Index(t => t.UserServiceProvider_Id);
             
+            AddColumn("dbo.UserServiceProviders", "LastInvoiceTotal", c => c.Int(nullable: false));
+            AddColumn("dbo.UserServiceProviders", "UserNumber", c => c.String());
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.Invoices", "UserServiceProvider_Id", "dbo.UserServiceProviders");
             DropIndex("dbo.Invoices", new[] { "UserServiceProvider_Id" });
+            DropColumn("dbo.UserServiceProviders", "UserNumber");
+            DropColumn("dbo.UserServiceProviders", "LastInvoiceTotal");
             DropTable("dbo.Invoices");
         }
     }

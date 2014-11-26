@@ -13,7 +13,7 @@ namespace EIMT.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201411262034351_Invoices"; }
+            get { return "201411262111051_Invoices"; }
         }
         
         string IMigrationMetadata.Source

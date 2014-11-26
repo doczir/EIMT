@@ -36,6 +36,8 @@ namespace EIMT.Models
         public int Id { get; set; }
         public ApplicationUser User { get; set; }
         public ServiceProvider ServiceProvider { get; set; }
+        public int LastInvoiceTotal { get; set; }
+        public string UserNumber { get; set; }
     }
 
     public class Invoice

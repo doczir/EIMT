@@ -15,7 +15,7 @@ namespace EIMT.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         /// <summary>
