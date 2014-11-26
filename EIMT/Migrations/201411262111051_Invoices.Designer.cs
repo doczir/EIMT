@@ -7,13 +7,13 @@ namespace EIMT.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class LastInvoice_UserNumber : IMigrationMetadata
+    public sealed partial class Invoices : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(LastInvoice_UserNumber));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Invoices));
         
         string IMigrationMetadata.Id
         {
-            get { return "201411262052433_LastInvoice_UserNumber"; }
+            get { return "201411262111051_Invoices"; }
         }
         
         string IMigrationMetadata.Source
