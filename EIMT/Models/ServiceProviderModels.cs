@@ -28,4 +28,12 @@ namespace EIMT.Models
         public string AccountNumber { get; set; }
         public string Password { get; set; }
     }
+
+    public class UserServiceProvider
+    {
+        [Key]
+        public int Id { get; set; }
+        public ApplicationUser User { get; set; }
+        public ServiceProvider ServiceProvider { get; set; }
+    }
 }

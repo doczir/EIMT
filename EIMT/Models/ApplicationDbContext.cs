@@ -11,6 +11,7 @@ namespace EIMT.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<ServiceProvider> ServiceProviders { get; set; }
+        public DbSet<UserServiceProvider> UserServiceProvider { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
