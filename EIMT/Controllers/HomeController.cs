@@ -17,9 +17,15 @@ namespace EIMT.Controllers
         }
 
         [Authorize(Roles = "User")]
-        public ActionResult AddServiceProvider()
+        public ActionResult ServiceProviders()
         {
-            return View();
+            using (var context = new ApplicationDbContext())
+            {
+                var uid = User.Identity.GetUserId();
+                var spvmList = context.UserServiceProvider.Where(usp => usp.User.Id == uid).Select(usp => usp.ServiceProvider).ToList();
+
+                return View(spvmList);
+            }
         }
 
         [Authorize(Roles = "User")]
@@ -30,16 +36,10 @@ namespace EIMT.Controllers
             {
                 string userId = User.Identity.GetUserId();
 
-                ApplicationUser user = um.FindById(userId);
+                var user = um.FindById(userId);
 
                 var invoices = im.GetInvoices(user);
-                List<InvoiceViewModel> ivms = new List<InvoiceViewModel>();
-                foreach (Invoice invoice in invoices)
-                {
-                    InvoiceViewModel ivm = new InvoiceViewModel(invoice);
-
-                    ivms.Add(ivm);
-                }
+                var ivms = invoices.Select(invoice => new InvoiceViewModel(invoice)).ToList();
 
                 return View(ivms);
             }

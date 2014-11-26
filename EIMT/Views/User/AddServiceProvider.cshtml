@@ -1,0 +1,72 @@
+﻿@model EIMT.Models.AddServiceProviderViewModel
+
+@{
+    ViewBag.Title = "CreateServiceProvider";
+}
+
+<h2>CreateServiceProvider</h2>
+
+@using (Html.BeginForm("AddServiceProvider", "User", FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>ServiceProviderViewModel</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserServiceProvider.ServiceProvider, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @{
+                    var items = new SelectList(Model.ServiceProviders, "", "Name");
+                }
+                @Html.DropDownListFor(model => model.UserServiceProvider.ServiceProvider, @items)
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model., new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AccountNumber, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AccountNumber)
+                @Html.ValidationMessageFor(model => model.AccountNumber)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Password)
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ConfirmPassword, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ConfirmPassword)
+                @Html.ValidationMessageFor(model => model.ConfirmPassword)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div*@
+    </div>
+
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "AddServiceProvider", "Home")
+</div>

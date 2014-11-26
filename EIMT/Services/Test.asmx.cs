@@ -18,9 +18,10 @@ namespace EIMT.Services
     {
 
         [WebMethod]
-        public string HelloWorld(string s)
+        public string HelloWorld(DateTime d)
         {
-            return "Hello World";
+            
+            return "Hello World" + d;
         }
     }
 }

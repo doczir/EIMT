@@ -41,4 +41,10 @@ namespace EIMT.Models
             Total = invoice.Total;
         }
     }
+
+    public class AddServiceProviderViewModel
+    {
+        public UserServiceProvider UserServiceProvider { get; set; }
+        public IEnumerable<ServiceProvider> ServiceProviders { get; set; }
+    }
 }
