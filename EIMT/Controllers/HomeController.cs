@@ -39,7 +39,12 @@ namespace EIMT.Controllers
                 var user = um.FindById(userId);
 
                 var invoices = im.GetInvoices(user);
-                var ivms = invoices.Select(invoice => new InvoiceViewModel(invoice)).ToList();
+                
+                List<InvoiceViewModel> ivms = new List<InvoiceViewModel>();
+                foreach (var invoice in invoices)
+                {
+                    ivms.Add(new InvoiceViewModel(invoice));
+                }
 
                 return View(ivms);
             }

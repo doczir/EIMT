@@ -73,6 +73,14 @@ namespace EIMT.Managers
             return true;
         }
 
+        public UserServiceProvider GetUserServiceProvider(int spId, string userNumber)
+        {
+            UserServiceProvider userServiceProvider =
+                _context.UserServiceProvider.First(usp => usp.ServiceProvider.Id == spId && usp.UserNumber == userNumber);
+
+            return userServiceProvider;
+        }
+
         public void Dispose()
         {
             _context.Dispose();
