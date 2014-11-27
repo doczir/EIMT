@@ -28,9 +28,7 @@
                 @Html.DisplayFor(modelItem => item.AccountNumber)
             </td>
             <td>
-                @Html.ActionLink("Edit", "EditServiceProviderData", "Admin", new { id = item.Id }, null) |
-                @Html.ActionLink("Change password", "EditServiceProviderPassword", "Admin", new { id = item.Id }, null) |
-                @Html.ActionLink("Delete", "DeleteServiceProvider", "Admin", new { id = item.Id }, null)
+                @Html.ActionLink("Delete", "DeleteServiceProvider", "User", new { spId = item.Id }, null)
             </td>
         </tr>
     }

@@ -230,5 +230,14 @@ namespace EIMT.Managers
         {
             _context.Dispose();
         }
+
+        public ServiceProvider GetSpById(int id)
+        {
+            var query = (from s in _context.ServiceProviders
+                         where s.Id == id
+                         select s).FirstOrDefault();
+
+            return query;
+        }
     }
 }

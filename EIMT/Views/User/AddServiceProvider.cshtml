@@ -1,4 +1,6 @@
-﻿@model EIMT.Models.AddServiceProviderViewModel
+﻿@using Microsoft.AspNet.Identity
+@using WebGrease.Css.Extensions
+@model EIMT.Models.AddServiceProviderViewModel
 
 @{
     ViewBag.Title = "CreateServiceProvider";
@@ -16,31 +18,41 @@
         @Html.ValidationSummary(true)
         
         <div class="form-group">
-            @Html.LabelFor(model => model.UserServiceProvider.ServiceProvider, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.SelectedServiceProvider, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @{
-                    var items = new SelectList(Model.ServiceProviders, "", "Name");
+                    var list = new List<dynamic>();
+                    
+                    Model.ServiceProviders.ForEach(sp =>list.Add(new{Id = sp.Id, Name = sp.Name}));
+                    
+                    var items = new SelectList(list, "Id", "Name");
                 }
-                @Html.DropDownListFor(model => model.UserServiceProvider.ServiceProvider, @items)
+                @Html.DropDownListFor(model => model.SelectedServiceProvider, @items)
             </div>
         </div>
         
         <div class="form-group">
-            @Html.LabelFor(model => model.UserServiceProvider.UserNumber, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.UserNumber, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.UserServiceProvider.UserNumber)
-                @Html.ValidationMessageFor(model => model.UserServiceProvider.UserNumber)
+                @Html.EditorFor(model => model.UserNumber)
+                @Html.ValidationMessageFor(model => model.UserNumber)
             </div>
         </div>
         
         <div class="form-group">
-            @Html.LabelFor(model => model.UserServiceProvider.LastInvoiceTotal, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.LastInvoiceTotal, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.UserServiceProvider.LastInvoiceTotal)
-                @Html.ValidationMessageFor(model => model.UserServiceProvider.LastInvoiceTotal)
+                @Html.EditorFor(model => model.LastInvoiceTotal)
+                @Html.ValidationMessageFor(model => model.LastInvoiceTotal)
             </div>
         </div>
-    </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add" class="btn btn-default" />
+            </div>
+        </div>
+</div>
 
 
 }

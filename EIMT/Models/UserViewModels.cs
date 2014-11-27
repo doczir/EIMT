@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Migrations.Model;
 using System.Linq;
@@ -44,7 +45,20 @@ namespace EIMT.Models
 
     public class AddServiceProviderViewModel
     {
-        public UserServiceProvider UserServiceProvider { get; set; }
+        [Range(1, int.MaxValue)]
+        [Required]
+        [DisplayName("Last Invoice Total")]
+        public int LastInvoiceTotal { get; set; }
+
+        [Required]
+        [DisplayName("User Number")]
+        public string UserNumber { get; set; }
+
+        [Required]
+        [DisplayName("Service Provider")]
+        public int SelectedServiceProvider { get; set; }
+        
+
         public IEnumerable<ServiceProvider> ServiceProviders { get; set; }
     }
 }
