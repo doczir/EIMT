@@ -175,6 +175,12 @@ namespace EIMT.Managers
             if (query == null)
                     throw new Exception("There isn't an existing service provider with the given id. Please try again!");
 
+            _context.Invoices.RemoveRange(
+                _context.Invoices.Where(inv => inv.UserServiceProvider.ServiceProvider.Id == id).ToList());
+
+            _context.UserServiceProvider.RemoveRange(
+                _context.UserServiceProvider.Where(usp => usp.ServiceProvider.Id == id).ToList());
+
             _context.ServiceProviders.Remove(query);
 
             _context.SaveChanges();

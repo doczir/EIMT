@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using EIMT.Managers;
@@ -15,12 +16,20 @@ namespace EIMT.Controllers
         [HttpGet]
         public ActionResult DeleteUser(string email)
         {
-            using (var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()))
-                )
+            using (var context = new ApplicationDbContext())
+            using (var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context)))
             {
                 var user = um.FindByName(email);
                 if (user != null)
                 {
+                    context.Invoices.RemoveRange(
+                        context.Invoices.Where(inv => inv.UserServiceProvider.User.Email == email).ToList());
+
+                    context.UserServiceProvider.RemoveRange(
+                        context.UserServiceProvider.Where(usp => usp.User.Email == email).ToList());
+
+                    context.SaveChanges();
+
                     um.Delete(user);
                 }
             }
