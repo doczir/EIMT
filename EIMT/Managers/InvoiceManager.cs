@@ -29,6 +29,29 @@ namespace EIMT.Managers
             return true;
         }
 
+        public InvoiceDetailsViewModel GetInvoiceDetails(int id)
+        {
+            Invoice invoice = _context.Invoices.Include("UserServiceProvider").Include("UserServiceProvider.ServiceProvider").First(i => i.Id == id);
+
+            if (invoice == null)
+            {
+                throw new Exception("Not an existing invoice!");
+            }
+
+            InvoiceDetailsViewModel idvm = new InvoiceDetailsViewModel()
+            {
+                Id = invoice.Id,
+                Comment = invoice.Comment,
+                Deadline = invoice.Deadline,
+                Paid = invoice.Paid,
+                Total = invoice.Total,
+                ServiceProviderName = invoice.UserServiceProvider.ServiceProvider.Name,
+                SPAccountNumber = invoice.UserServiceProvider.ServiceProvider.AccountNumber
+            };
+
+            return idvm;
+        }
+
         public List<Invoice> GetInvoices(ApplicationUser user)
         {
             if (user == null)
@@ -36,7 +59,7 @@ namespace EIMT.Managers
                 throw new Exception("The user parameter can not be null!");
             }
 
-            var invoices = _context.Invoices.Where(i => i.UserServiceProvider.User.Id == user.Id).ToList();
+            var invoices = _context.Invoices.Include("UserServiceProvider.User").Include("UserServiceProvider.ServiceProvider").Where(i => i.UserServiceProvider.User.Id == user.Id).ToList();
 
             return invoices;
         }
@@ -76,7 +99,7 @@ namespace EIMT.Managers
         public UserServiceProvider GetUserServiceProvider(int spId, string userNumber)
         {
             UserServiceProvider userServiceProvider =
-                _context.UserServiceProvider.First(usp => usp.ServiceProvider.Id == spId && usp.UserNumber == userNumber);
+                _context.UserServiceProvider.Include("User").First(usp => usp.ServiceProvider.Id == spId && usp.UserNumber == userNumber);
 
             return userServiceProvider;
         }

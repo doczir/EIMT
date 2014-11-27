@@ -45,15 +45,8 @@
             @Html.DisplayFor(modelItem => item.Paid)
         </td>
         <td>
-            @if (item.Paid == true)
-            {
-                Html.ActionLink("Set unpaid", "ChangeInvoicePaid", "User", new {id = item.Id}, null);
-            }
-            else
-            {
-                Html.ActionLink("Set paid", "ChangeInvoicePaid", "User", new {id = item.Id}, null);
-            }
-             | @Html.ActionLink("Delete", "DeleteInvoice", "User", new { id=item.Id }, null)
+            @Html.ActionLink("Details", "DetailInvoice", "User", new { id = item.Id }, null) |
+            @Html.ActionLink("Delete", "DeleteInvoice", "User", new { id=item.Id }, null)
         </td>
     </tr>
 }

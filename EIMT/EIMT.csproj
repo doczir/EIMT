@@ -284,6 +284,7 @@
     <Content Include="Views\Home\Invoices.cshtml" />
     <Content Include="Views\Admin\CreateServiceProvider.cshtml" />
     <Content Include="Views\Home\ServiceProviders.cshtml" />
+    <Content Include="Views\User\DetailInvoice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

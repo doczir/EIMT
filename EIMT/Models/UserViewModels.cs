@@ -8,6 +8,13 @@ using System.Web;
 
 namespace EIMT.Models
 {
+
+    public class AttachedServiceProviderViewModel : ServiceProviderViewModel
+    {
+        [Display(Name = "User number")]
+        public string UserNumber { get; set; }
+    }
+
     public class InvoiceViewModel
     {
         [Display(Name = "Id")]
@@ -41,6 +48,12 @@ namespace EIMT.Models
             ServiceProviderName = invoice.UserServiceProvider.ServiceProvider.Name;
             Total = invoice.Total;
         }
+    }
+
+    public class InvoiceDetailsViewModel : InvoiceViewModel
+    {
+        [Display(Name = "Service provider account number")]
+        public string SPAccountNumber { get; set; }
     }
 
     public class AddServiceProviderViewModel

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -110,6 +111,23 @@ namespace EIMT.Controllers
                 }
 
                 return RedirectToAction("Invoices", "Home");
+            }
+        }
+
+        public ActionResult DetailInvoice(int id)
+        {
+            using (var im = new InvoiceManager(new ApplicationDbContext()))
+            {
+                try
+                {
+                    return View(im.GetInvoiceDetails(id));
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", e.Message);
+
+                    return RedirectToAction("Invoices", "Home");
+                }
             }
         }
 

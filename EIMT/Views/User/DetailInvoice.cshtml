@@ -1,0 +1,65 @@
+﻿@model EIMT.Models.InvoiceDetailsViewModel
+
+@{
+    ViewBag.Title = "Invoice details";
+}
+
+<h2>Invoice details</h2>
+
+<div>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ServiceProviderName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServiceProviderName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Deadline)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Deadline)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Total)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Paid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Paid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SPAccountNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SPAccountNumber)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Change paid...", "ChangeInvoicePaid", "User", new { id = Model.Id }, null) |
+    @Html.ActionLink("Back to List", "Invoices", "Home")
+</p>

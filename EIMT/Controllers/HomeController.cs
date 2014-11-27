@@ -22,9 +22,23 @@ namespace EIMT.Controllers
             using (var context = new ApplicationDbContext())
             {
                 var uid = User.Identity.GetUserId();
-                var spvmList = context.UserServiceProvider.Where(usp => usp.User.Id == uid).Select(usp => usp.ServiceProvider).ToList();
+                var usps = context.UserServiceProvider.Include("ServiceProvider").Where(usp => usp.User.Id == uid).ToList();
 
-                return View(spvmList);
+                List<AttachedServiceProviderViewModel> aspvms = new List<AttachedServiceProviderViewModel>();
+                foreach (var usp in usps)
+                {
+                    AttachedServiceProviderViewModel aspvm = new AttachedServiceProviderViewModel()
+                    {
+                        Id = usp.ServiceProvider.Id,
+                        Name = usp.ServiceProvider.Name,
+                        UserNumber = usp.UserNumber,
+                        AccountNumber = usp.ServiceProvider.AccountNumber
+                    };
+
+                    aspvms.Add(aspvm);
+                }
+
+                return View(aspvms);
             }
         }
 
