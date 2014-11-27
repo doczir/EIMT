@@ -26,8 +26,6 @@ namespace EIMT.Services
             using (var im = new InvoiceManager(context))
             using (var spm = new ServiceProviderManager(context))
             {
-                //context.Configuration.LazyLoadingEnabled = false;
-
                 ServiceProviderIdentity spi = spm.Authenticate(spId, password);
                 if (spi == null)
                 {
