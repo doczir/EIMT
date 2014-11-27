@@ -25,6 +25,8 @@ namespace EIMT.Managers
             _context.Invoices.Add(invoice);
 
             _context.SaveChanges();
+
+            return true;
         }
 
         public List<Invoice> GetInvoices(ApplicationUser user)
