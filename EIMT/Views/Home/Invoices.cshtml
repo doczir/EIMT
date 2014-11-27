@@ -1,4 +1,5 @@
-﻿@model IEnumerable<EIMT.Models.InvoiceViewModel>
+﻿@using System.Activities.Statements
+@model IEnumerable<EIMT.Models.InvoiceViewModel>
 
 @{
     ViewBag.Title = "Invoices";
@@ -6,9 +7,6 @@
 
 <h2>Invoices</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -47,9 +45,15 @@
             @Html.DisplayFor(modelItem => item.Paid)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @if (item.Paid == true)
+            {
+                Html.ActionLink("Set unpaid", "ChangeInvoicePaid", "User", new {id = item.Id}, null);
+            }
+            else
+            {
+                Html.ActionLink("Set paid", "ChangeInvoicePaid", "User", new {id = item.Id}, null);
+            }
+             | @Html.ActionLink("Delete", "DeleteInvoice", "User", new { id=item.Id }, null)
         </td>
     </tr>
 }

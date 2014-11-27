@@ -94,5 +94,41 @@ namespace EIMT.Controllers
 
             
         }
+
+        [HttpGet]
+        public ActionResult ChangeInvoicePaid(int id)
+        {
+            using (var im = new InvoiceManager(new ApplicationDbContext()))
+            {
+                try
+                {
+                    im.ChangeInvoicePaid(id);
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", e.Message);
+                }
+
+                return RedirectToAction("Invoices", "Home");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult DeleteInvoice(int id)
+        {
+            using (var im = new InvoiceManager(new ApplicationDbContext()))
+            {
+                try
+                {
+                    im.DeleteInvoice(id);
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", e.Message);
+                }
+
+                return RedirectToAction("Invoices", "Home");
+            }
+        }
     }
 }
