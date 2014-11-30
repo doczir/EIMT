@@ -3,17 +3,16 @@
 @model EIMT.Models.AddServiceProviderViewModel
 
 @{
-    ViewBag.Title = "CreateServiceProvider";
+    ViewBag.Title = "Add Service Provider";
 }
 
-<h2>CreateServiceProvider</h2>
+<h2>Add Service Provider</h2>
 
 @using (Html.BeginForm("AddServiceProvider", "User", FormMethod.Post)) 
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>ServiceProviderViewModel</h4>
         <hr />
         @Html.ValidationSummary(true)
         
